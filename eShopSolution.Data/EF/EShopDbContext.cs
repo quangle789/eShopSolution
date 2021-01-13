@@ -1,5 +1,6 @@
 ﻿using eShopSolution.Data.Configurations;
 using eShopSolution.Data.Entities;
+using eShopSolution.Data.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +46,7 @@ namespace eShopSolution.Data.EF
             //modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
             //modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
             //modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
-           // modelBuilder.Seed();
+           modelBuilder.Seed();
         }
 
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data.EF;
 
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    partial class EShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210113075156_initial3")]
+    partial class initial3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -282,7 +284,7 @@ namespace eShopSolution.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2021, 1, 13, 14, 58, 2, 664, DateTimeKind.Local).AddTicks(6811));
+                        .HasDefaultValue(new DateTime(2021, 1, 13, 14, 51, 55, 455, DateTimeKind.Local).AddTicks(3670));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -373,7 +375,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 1, 13, 14, 58, 2, 680, DateTimeKind.Local).AddTicks(5929),
+                            DateCreated = new DateTime(2021, 1, 13, 14, 51, 55, 470, DateTimeKind.Local).AddTicks(4131),
                             OriginalPrice = 1000000m,
                             Price = 2000000m,
                             Stock = 0,
@@ -468,9 +470,9 @@ namespace eShopSolution.Data.Migrations
                             Id = 2,
                             Description = "viet-tien-men-t-shirt",
                             Details = "viet-tien-men-t-shirt",
-                            LanguageId = "vi-VN",
-                            Name = "Việt Tiến men T-Shirt",
-                            ProductId = 1,
+                            LanguageId = "en-US",
+                            Name = "Viet Tien men T-Shirt",
+                            ProductId = 2,
                             SeoAlias = "viet-tien-men-t-shirt",
                             SeoDescription = "viet-tien-men-t-shirt",
                             SeoTitle = "viet-tien-men-t-shirt"
