@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eShopSolution.Data.EF;
 
 namespace eShopSolution.Data.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    partial class EShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210113075639_initial6")]
+    partial class initial6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -282,7 +284,7 @@ namespace eShopSolution.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime(6)")
-                        .HasDefaultValue(new DateTime(2021, 1, 13, 14, 58, 2, 664, DateTimeKind.Local).AddTicks(6811));
+                        .HasDefaultValue(new DateTime(2021, 1, 13, 14, 56, 38, 480, DateTimeKind.Local).AddTicks(9644));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -373,7 +375,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 1, 13, 14, 58, 2, 680, DateTimeKind.Local).AddTicks(5929),
+                            DateCreated = new DateTime(2021, 1, 13, 14, 56, 38, 496, DateTimeKind.Local).AddTicks(4931),
                             OriginalPrice = 1000000m,
                             Price = 2000000m,
                             Stock = 0,
@@ -465,7 +467,7 @@ namespace eShopSolution.Data.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 5,
                             Description = "viet-tien-men-t-shirt",
                             Details = "viet-tien-men-t-shirt",
                             LanguageId = "vi-VN",
