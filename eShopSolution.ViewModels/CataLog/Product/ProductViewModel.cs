@@ -18,5 +18,6 @@ namespace eShopSolution.ViewModels.CataLog.Product
         public string SeoTitle { set; get; }
         public string SeoAlias { get; set; }
         public string LanguageId { set; get; }
+        public int ViewCount { get; set; }
     }
 }
