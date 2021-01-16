@@ -18,7 +18,7 @@ namespace eShopSolution.Application.CataLog.Products
             _context = context;
         }
 
-        public async Task<List<ProductViewModel>> GetAll()
+        public async Task<List<ProductViewModel>> GetAll(string LanguageId)
         {
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on
@@ -26,6 +26,7 @@ p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id
 equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.ID
+                        where pt.LanguageId == LanguageId
                         select new { p, pt, pic };
 
 
@@ -51,6 +52,7 @@ p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id
 equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.ID
+                        where pt.LanguageId == request.LanguageId
                         select new { p, pt, pic };
 
             //2 filter

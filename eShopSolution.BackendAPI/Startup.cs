@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EShop.Utilities.Constants;
 using eShopSolution.Application.CataLog.Products;
+using eShopSolution.Application.Common;
 using eShopSolution.Data.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,9 @@ namespace eShopSolution.BackendAPI
         {
             services.AddDbContext<EShopDbContext>(options => options.UseMySql(Configuration.GetConnectionString(SystemConstants.MainConnectionSting)));
             //khai bao dependence injection
+            services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IPublicProductService, PublicProductService>();
+            services.AddTransient<IManageProductService, ManageProductService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {
