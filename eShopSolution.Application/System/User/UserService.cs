@@ -1,5 +1,5 @@
 ﻿using eShopSolution.Data.Entities;
-using eShopSolution.ViewModels.System;
+using eShopSolution.ViewModels.System.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -32,7 +32,7 @@ namespace eShopSolution.Application.System.User
                 return null;
             }
             var result = await _signInManager.PasswordSignInAsync(user, login.Password,login.RememberMe,true);
-            if(!result.Succeeded)
+            if(!result.Succeeded) 
             {
                 return null;
             }

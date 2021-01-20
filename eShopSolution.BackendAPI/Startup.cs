@@ -8,6 +8,9 @@ using eShopSolution.Application.Common;
 using eShopSolution.Application.System.User;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
+using eShopSolution.ViewModels.System.User;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,7 +45,9 @@ namespace eShopSolution.BackendAPI
             services.AddTransient<IManageProductService, ManageProductService>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<IUserService,UserService>();
-            services.AddControllers();
+            //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidater>();
+
+            services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidater>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {
