@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eShopSolution.Application.System.User;
-using eShopSolution.ViewModels.System;
+using eShopSolution.ViewModels.System.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,14 +22,14 @@ namespace eShopSolution.BackendAPI.Controllers
 
         [HttpPost("AuthenCate")]
         [AllowAnonymous]
-        public async Task<IActionResult> AuthenCate([FromForm] LoginRequest request)
+        public async Task<IActionResult> AuthenCate([FromBody] LoginRequest request)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             var result = await _userService.Authencate(request);
-            if(!string.IsNullOrEmpty(result))
+            if(string.IsNullOrEmpty(result))
             {
                 return BadRequest("UserName or PassWord is incorect");
             }

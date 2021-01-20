@@ -1,4 +1,4 @@
-﻿using eShopSolution.ViewModels.System;
+﻿using eShopSolution.ViewModels.System.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
