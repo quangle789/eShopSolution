@@ -29,7 +29,7 @@ namespace eShopSolution.BackendAPI.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _userService.Authencate(request);
-            if(!string.IsNullOrEmpty(result))
+            if(string.IsNullOrEmpty(result))
             {
                 return BadRequest("UserName or PassWord is incorect");
             }
