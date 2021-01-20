@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using EShop.Utilities.Constants;
 using eShopSolution.Application.CataLog.Products;
 using eShopSolution.Application.Common;
+using eShopSolution.Application.System.User;
 using eShopSolution.Data.EF;
+using eShopSolution.Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,10 +33,13 @@ namespace eShopSolution.BackendAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<EShopDbContext>(options => options.UseMySql(Configuration.GetConnectionString(SystemConstants.MainConnectionSting)));
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<EShopDbContext>().AddDefaultTokenProviders();
             //khai bao dependence injection
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IPublicProductService, PublicProductService>();
             services.AddTransient<IManageProductService, ManageProductService>();
+            services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
+            services.AddTransient<IUserService,UserService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {

@@ -7,6 +7,7 @@ using eShopSolution.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.CataLog.Product;
+using eShopSolution.ViewModels.CataLog.ProductImages;
 
 namespace eShopSolution.Application.CataLog.Products
 {
@@ -18,7 +19,7 @@ namespace eShopSolution.Application.CataLog.Products
             _context = context;
         }
 
-        public async Task<List<ProductViewModel>> GetAll(string LanguageId)
+        public async Task<PageResult<ProductViewModel>> GetAllByCategoryId(string LangueId, GetPublicProductPagingRequest request)
         {
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on
@@ -26,33 +27,7 @@ p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id
 equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.ID
-                        where pt.LanguageId == LanguageId
-                        select new { p, pt, pic };
-
-
-            var data = await query.Select(x => new ProductViewModel()
-            {
-                Id = x.p.Id,
-                Name = x.pt.Name,
-                DateCreated = x.p.DateCreated,
-                Description = x.pt.Description,
-                Details = x.pt.Details,
-                LanguageId = x.pt.LanguageId,
-                OriginalPrice = x.p.OriginalPrice,
-                Price = x.p.Price,
-            }).ToListAsync();
-            return data;
-         }
-
-        public async Task<PageResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request)
-        {
-            var query = from p in _context.Products
-                        join pt in _context.ProductTranslations on
-p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id
-equals pic.ProductId
-                        join c in _context.Categories on pic.CategoryId equals c.ID
-                        where pt.LanguageId == request.LanguageId
+                        where pt.LanguageId == LangueId
                         select new { p, pt, pic };
 
             //2 filter

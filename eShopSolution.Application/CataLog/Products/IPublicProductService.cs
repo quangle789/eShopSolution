@@ -1,4 +1,5 @@
 ﻿using eShopSolution.ViewModels.CataLog.Product;
+using eShopSolution.ViewModels.CataLog.ProductImages;
 using eShopSolution.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace eShopSolution.Application.CataLog.Products
     public interface IPublicProductService
     { 
         //danh cho ben ngoai goi
-        Task<PageResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request);
-        Task<List<ProductViewModel>> GetAll(string LanguageId);
+        Task<PageResult<ProductViewModel>> GetAllByCategoryId(string LanguageId, GetPublicProductPagingRequest request);
     }
 }
