@@ -38,9 +38,9 @@ namespace eShopSolution.BackendAPI.Controllers
             );
         }
 
-        [HttpPost("Register")]
+        [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromForm] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -49,7 +49,7 @@ namespace eShopSolution.BackendAPI.Controllers
             var result = await _userService.Register(request);
             if (!result)
             {
-                return BadRequest("Register is successful");
+                return BadRequest("Register is unsuccessful");
             }
             return Ok(); 
         }
