@@ -33,9 +33,9 @@ namespace eShopSolution.BackendAPI.Controllers
             {
                 return BadRequest("UserName or PassWord is incorect");
             }
-            return Ok(new { 
-                token = result
-            });
+            return Ok(
+                result
+            );
         }
 
         [HttpPost("Register")]
@@ -52,6 +52,13 @@ namespace eShopSolution.BackendAPI.Controllers
                 return BadRequest("Register is successful");
             }
             return Ok(); 
+        }
+
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
+        {
+            var users = await _userService.GetUserPaging(request);
+            return Ok(users);
         }
     }
 }

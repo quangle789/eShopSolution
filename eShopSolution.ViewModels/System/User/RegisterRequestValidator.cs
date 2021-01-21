@@ -9,10 +9,10 @@ namespace eShopSolution.ViewModels.System.User
     {
         public RegisterRequestValidator()
         {
-            RuleFor(x => x.FisrtName).NotEmpty().WithMessage("Fisrt Name is required").MinimumLength(200)
+            RuleFor(x => x.FisrtName).NotEmpty().WithMessage("Fisrt Name is required").MaximumLength(200)
                 .WithMessage("Fisrt Name can not over 200 characters");
 
-            RuleFor(x => x.LastName).NotEmpty().WithMessage("Last Name is required").MinimumLength(200)
+            RuleFor(x => x.LastName).NotEmpty().WithMessage("Last Name is required").MaximumLength(200)
                 .WithMessage("Fisrt Name can not over 200 characters");
 
             RuleFor(x => x.DOB).GreaterThan(DateTime.Now.AddYears(-100)).WithMessage("Birthday cannot greater than 100 years !");

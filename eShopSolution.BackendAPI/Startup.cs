@@ -41,8 +41,7 @@ namespace eShopSolution.BackendAPI
             services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<EShopDbContext>().AddDefaultTokenProviders();
             //khai bao dependence injection
             services.AddTransient<IStorageService, FileStorageService>();
-            services.AddTransient<IPublicProductService, PublicProductService>();
-            services.AddTransient<IManageProductService, ManageProductService>();
+            services.AddTransient<IProductService, ManageProductService>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<IUserService,UserService>();
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidater>();

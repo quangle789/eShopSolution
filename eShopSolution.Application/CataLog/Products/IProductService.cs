@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eShopSolution.Application.CataLog.Products
 {
-    public interface IManageProductService
+    public interface IProductService
     {
         //danh cho quan ly san pham
         Task<int> Create(ProductCreateRequest request);
@@ -26,6 +26,7 @@ namespace eShopSolution.Application.CataLog.Products
         Task<int> UpdateImage(int imageId, ProductImageUpdateImageRequest productImage);
         Task<List<ProductImageViewModel>> getListImage(int productId);
         Task<ProductImageViewModel> GetImageById(int ImageId);
+        Task<PageResult<ProductViewModel>> GetAllByCategoryId(string LanguageId, GetPublicProductPagingRequest request);
 
     }
 }
