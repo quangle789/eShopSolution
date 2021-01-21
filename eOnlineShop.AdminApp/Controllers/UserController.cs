@@ -19,7 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace eOnlineShop.AdminApp.Controllers
 {
     
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserAPI _userAPI;
         private readonly IConfiguration _configuration;
@@ -43,59 +43,36 @@ namespace eOnlineShop.AdminApp.Controllers
         }
 
         [HttpGet]
-        public  async Task<IActionResult> Login()
+        public  IActionResult Create()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+           
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginRequest request)
+        public async Task<IActionResult> Create(RegisterRequest request)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
-                return View(ModelState);
+                return View();
             }
-            var token = await _userAPI.Authenticate(request);
-            var userPricipal = this.ValidateToken(token);
-            var authProperties = new AuthenticationProperties
+            var result = await _userAPI.RegisterUser(request);
+            if(result)
             {
-                IsPersistent = false,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
-            };
-
-            HttpContext.Session.SetString("Token",token);
-         
-            await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        userPricipal,
-                        authProperties);
-            return RedirectToAction("Index","Home");
+                return RedirectToAction("Index");
+            }
+            return View(request);
         }
+
+       
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login","User");
+            return RedirectToAction("Index","Login");
         }
 
-        private ClaimsPrincipal ValidateToken(string jwtToken)
-        {
-            IdentityModelEventSource.ShowPII = true;
-
-            SecurityToken validatedToken;
-            TokenValidationParameters validationParameters = new TokenValidationParameters();
-
-            validationParameters.ValidateLifetime = true;
-
-            validationParameters.ValidAudience = _configuration["Tokens:Issuer"];
-            validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
-            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
-
-            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
-
-            return principal;
-        }
+        
     }
 }

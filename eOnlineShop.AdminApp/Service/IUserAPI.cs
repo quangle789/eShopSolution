@@ -11,5 +11,6 @@ namespace eOnlineShop.AdminApp.Service
     {
         Task<string> Authenticate(LoginRequest request);
         Task<PageResult<UserViewModel>> GetUserPaging(GetUserPagingRequest request);
+        Task<bool> RegisterUser(RegisterRequest request);
     }
 }
