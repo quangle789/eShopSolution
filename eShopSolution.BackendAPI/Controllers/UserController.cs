@@ -29,13 +29,27 @@ namespace eShopSolution.BackendAPI.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _userService.Authencate(request);
-            if(string.IsNullOrEmpty(result))
+            if(string.IsNullOrEmpty(result.ResultObj))
             {
                 return BadRequest("UserName or PassWord is incorect");
             }
             return Ok(
                 result
             );
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(Guid id, [FromBody] UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Update(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result);
         }
 
         [HttpPost]
@@ -46,8 +60,9 @@ namespace eShopSolution.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             var result = await _userService.Register(request);
-            if (!result)
+            if (!result.IsSuccessed)
             {
                 return BadRequest("Register is unsuccessful");
             }
@@ -59,6 +74,13 @@ namespace eShopSolution.BackendAPI.Controllers
         {
             var users = await _userService.GetUserPaging(request);
             return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetById(id);
+            return Ok(user);
         }
     }
 }
