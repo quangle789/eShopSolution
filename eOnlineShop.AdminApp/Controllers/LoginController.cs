@@ -42,14 +42,14 @@ namespace eOnlineShop.AdminApp.Controllers
                 return View(ModelState);
             }
             var token = await _userAPI.Authenticate(request);
-            var userPricipal = this.ValidateToken(token);
+            var userPricipal = this.ValidateToken(token.ResultObj);
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = false,
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
             };
 
-            HttpContext.Session.SetString("Token", token);
+            HttpContext.Session.SetString("Token", token.ResultObj);
 
             await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
