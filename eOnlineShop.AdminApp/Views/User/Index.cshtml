@@ -15,7 +15,7 @@
         <div class="card-header">
 
             <a asp-action="Create" asp-controller="user">
-                <button class="btn-success"> Tạo mới            </button>
+                <button class="btn-skuccess"> Tạo mới            </button>
             </a>
 
 
@@ -44,7 +44,7 @@
                                 Email
                             </th>
                             <th></th>
-                        </tr>
+                        </tr>ss
                     </thead>
                     <tbody>
                         @foreach (var item in Model.items)
@@ -69,8 +69,8 @@
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Detail", "Detail", new { id = item.Id }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                                 </td>
                             </tr>
@@ -78,6 +78,7 @@
                     </tbody>
                 </table>
             </div>
+            @await Component.InvokeAsync("Pager", Model)
         </div>
     </div>
 </div>

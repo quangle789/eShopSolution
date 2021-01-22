@@ -132,7 +132,9 @@ namespace eShopSolution.Application.CataLog.Products
 
             var pageResult = new PageResult<ProductViewModel>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
                 items = data,
             };
 
@@ -349,7 +351,9 @@ equals pic.ProductId
 
             var pageResult = new PageResult<ProductViewModel>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
+                PageSize = request.PageSize,
+                PageIndex = request.PageIndex,
                 items = data,
             };
 

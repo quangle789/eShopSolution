@@ -18,7 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace eOnlineShop.AdminApp.Controllers
 {
-    
+
     public class UserController : BaseController
     {
         private readonly IUserAPI _userAPI;
@@ -30,11 +30,11 @@ namespace eOnlineShop.AdminApp.Controllers
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 1)
         {
             var request = new GetUserPagingRequest()
             {
-                Keyword =keyword,
+                Keyword = keyword,
                 PageIndex = pageIndex,
                 PageSize = pageSize,
             };
@@ -60,6 +60,13 @@ namespace eOnlineShop.AdminApp.Controllers
 
             ModelState.AddModelError("", result.Message);
             return View(request);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(Guid Id)
+        {
+            var result = await _userAPI.GetById(Id);
+            return View(result.ResultObj);
         }
 
         [HttpGet]
@@ -105,7 +112,5 @@ namespace eOnlineShop.AdminApp.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index","Login");
         }
-
-        
     }
 }
