@@ -39,6 +39,20 @@ namespace eOnlineShop.AdminApp.Service
             return JsonConvert.DeserializeObject<ApiErrorResult<string>>(await respone.Content.ReadAsStringAsync());
         }
 
+        public async Task<ApiResult<bool>> Delete(Guid Id)
+        {
+            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_Iconfiguration["BaseAddress"]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
+            var response = await client.DeleteAsync($"/api/user/{Id}");
+            var body = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                return JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(body);
+
+            return JsonConvert.DeserializeObject<ApiErrorResult<bool>>(body);
+        }
+
         public async Task<ApiResult<UserViewModel>> GetById(Guid Id)
         {
             var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");

@@ -14,5 +14,6 @@ namespace eOnlineShop.AdminApp.Service
         Task<ApiResult<bool>> RegisterUser(RegisterRequest request);
         Task<ApiResult<bool>> UpdateUser(Guid Id, UserUpdateRequest request);
         Task<ApiResult<UserViewModel>> GetById(Guid Id);
+        Task<ApiResult<bool>> Delete(Guid Id);
     }
 }
