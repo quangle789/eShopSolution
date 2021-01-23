@@ -112,5 +112,27 @@ namespace eOnlineShop.AdminApp.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index","Login");
         }
+
+        [HttpGet]
+        public IActionResult Delete(Guid Id)
+        {
+            return View(new UserDeleteRequest() { 
+                Id = Id
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(UserDeleteRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var result = await _userAPI.Delete(request.Id);
+            if (result.IsSuccessed)
+                return RedirectToAction("Index");
+
+            ModelState.AddModelError("", result.Message);
+            return View(request);
+        }
     }
 }
