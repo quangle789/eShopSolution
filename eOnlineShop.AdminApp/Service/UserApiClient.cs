@@ -31,7 +31,7 @@ namespace eOnlineShop.AdminApp.Service
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri("https://localhost:5001");
-            var respone = await client.PostAsync("/api/user/AuthenCate", httpContent);
+            var respone = await client.PostAsync($"/api/user/AuthenCate", httpContent);
             if(respone.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<ApiSuccessResult<string>>(await respone.Content.ReadAsStringAsync());

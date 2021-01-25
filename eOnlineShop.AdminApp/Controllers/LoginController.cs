@@ -41,15 +41,20 @@ namespace eOnlineShop.AdminApp.Controllers
             {
                 return View(ModelState);
             }
-            var token = await _userAPI.Authenticate(request);
-            var userPricipal = this.ValidateToken(token.ResultObj);
+            var result = await _userAPI.Authenticate(request);
+            if(result.ResultObj == null)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View();
+            }
+            var userPricipal = this.ValidateToken(result.ResultObj);
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = false,
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
             };
 
-            HttpContext.Session.SetString("Token", token.ResultObj);
+            HttpContext.Session.SetString("Token", result.ResultObj);
 
             await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
